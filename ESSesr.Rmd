@@ -204,7 +204,7 @@ bb4W <- "bb_sstSatellite_4W.Rdata"
   
   psstSatellite4W<-MAReco::plot_temperature_anomaly(sstSatellite4W, year, normalizedAnomaly, mean_value4W, sd_value4W, ff, bb, y_label = "NAFO 4W SST Anomaly" )   
   
-  (psstSatellite4Vn/psstSatellite4Vs/psstSatellite4W)
+  psstSatellite4Vn + psstSatellite4Vs + psstSatellite4W + plot_layout(nrow=2, byrow=FALSE)
   
 
 ```
@@ -257,7 +257,7 @@ bb4W <- "bb_bottomt_4W.Rdata"
   
   pbottomt4W<-MAReco::plot_temperature_anomaly(bottomt4W, year, normalizedAnomaly, mean_value4W, sd_value4W, ff, bb, y_label = "NAFO 4W Bottom Temp Anomaly" )   
   
-  (pbottomt4Vn/pbottomt4Vs/pbottomt4W)
+  pbottomt4Vn + pbottomt4Vs + pbottomt4W + plot_layout(nrow=2, byrow=FALSE)
 
 ```
 
@@ -266,7 +266,7 @@ bb4W <- "bb_bottomt_4W.Rdata"
 
 ### Sea Surface Temperature (SST), Bottom Temperature
 [Casault et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-6-3589-eng.pdf) 
-```{r, echo = FALSE, fig.pos='H',fig.cap="Sea Surface Temperature and Bottom temperature from fixed stations for 4Vn, 4Vs, 4W. Dotted lines denote the long-term mean."}
+```{r, echo = FALSE, fig.align="center", fig.pos='H', fig.cap="Sea Surface Temperature and Bottom temperature from fixed stations for 4Vn, 4Vs, 4W. Dotted lines denote the long-term mean."}
   
  #azmpdata::Derived_Annual_Broadscale
 
@@ -338,7 +338,7 @@ Stratification<- SS_environmental_indicators |>
   filter(ID=="ESS") |> 
   select(YEAR, Salinity)
 
-  psal<-plot_indicator(Salinity, YEAR, Salinity, y_label="Salinity (ppt") 
+  psal<-plot_indicator(Salinity, YEAR, Salinity, y_label="Salinity (ppt)") 
 
 po2 + pstrat + psal + plot_layout(nrow=2, byrow=FALSE)
 
@@ -494,6 +494,9 @@ pbathy<-ggplot() +
 
 ```
 
+### Sediment
+
+*in development*
 
 ## Productivity 
 Productivity relates to the amount of energy or biomass generated in an ecosystem, providing energy to consumers. 
@@ -620,6 +623,9 @@ pLFI<-MAReco::plot_indicator(LFI, YEAR, LargeFishIndicator, y_label="Large Fish 
 (pLFI)
 ```
 - LFI in the ESS area has varied over time across two periods pre and post the mid 1990s. Latest four years indicate that LFI is below the long-term mean and indicate that structure and functioning of the ESS ecosystem may be unbalanced with a lower proportion of large fish to small fish in the ecological community. 
+
+### Preditor index
+*in development*
 
 ## Biodiversity 
 Biodiversity is described as the variety and variability among living organisms from all sources ([CBD](https://www.cbd.int/convention)). It is linked to ecosystem resilience and plays an important role in maintaining functionality and productivity of ecosystems. Biodiversity can relate to genetic, species, guild and ecosystem diversity. 
@@ -762,4 +768,8 @@ plv<- MAReco::plot_multiple_indicators(Landings_value, YEAR, Landed_Value_CAD, S
 
 # D. Social-Cultural
 
+*currently unavailable*
+
 # E. Governance
+
+*currently unavailable*
