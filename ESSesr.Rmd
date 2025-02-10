@@ -52,7 +52,7 @@ require(sf)
 
 \newpage
 
-```{r, echo = FALSE, out.width="75%", fig.align="center", fig.cap="Eastern Scotian Shelf Management area"}
+```{r, echo = FALSE, out.width="75%", fig.align="center", fig.cap="Eastern Scotian Shelf (ESS) Management area"}
 #integrate new map
 dat.dir<-here::here("data")
 coast<-"coast_sf.rda"
@@ -161,7 +161,7 @@ dd <- "dd_nao_.Rdata"
 ### Sea Surface Temperature Anomaly
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 3)
 
-```{r,fig.show='hold',fig.align="center", echo = FALSE,fig.width = 5, out.width="50%", fig.cap="The annual sea-surface-temperature normalized anomaly for NAFO regions within the ESS derived from satellite imagery compared to their long-term monthly means. Horizontal dashed lines represent plus or minus 0.5 SD for the 1991-2020 period. Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively. "}
+```{r,fig.show='hold',fig.align="center", echo = FALSE, fig.cap="The annual sea-surface-temperature normalized anomaly for NAFO regions within the ESS derived from satellite imagery compared to their long-term monthly means. Horizontal dashed lines represent plus or minus 0.5 SD for the 1991-2020 period. Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively. "}
 
 dat.dir<-here::here("data")
 dd4vn <- "dd_sstSatellite_4Vn.Rdata"
@@ -215,7 +215,7 @@ bb4W <- "bb_sstSatellite_4W.Rdata"
 ### Bottom Temperature Anomaly
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 8.2)
 
-```{r,fig.align="center", echo = FALSE, fig.width = 5,fig.pos='H', out.width="60%", fig.cap="Time series of July bottom-temperature anomalies (thin lines with circles) and five-year-running-mean filtered series (heavy line) for NAFO regions within the ESS. The solid horizontal line is the 1991-2020 mean and dashed lines represent ±0.5 SD. Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively."}
+```{r,fig.align="center", echo = FALSE, fig.cap="Time series of July bottom-temperature anomalies (thin lines with circles) and five-year-running-mean filtered series (heavy line) for NAFO regions within the ESS. The solid horizontal line is the 1991-2020 mean and dashed lines represent ±0.5 SD. Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively."}
 
 dat.dir<-here::here("data")
 dd4vn <- "dd_bottomt_4Vn.Rdata"
@@ -266,7 +266,7 @@ bb4W <- "bb_bottomt_4W.Rdata"
 
 ### Sea Surface Temperature (SST), Bottom Temperature
 [Casault et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-6-3589-eng.pdf) 
-```{r, fig.align="center", echo = FALSE, fig.pos='H',fig.cap="Sea Surface Temperature and Bottom temperature from fixed stations for 4Vn, 4Vs, 4W. Dotted lines denote the long-term mean."}
+```{r, echo = FALSE, fig.pos='H',fig.cap="Sea Surface Temperature and Bottom temperature from fixed stations for 4Vn, 4Vs, 4W. Dotted lines denote the long-term mean."}
   
  #azmpdata::Derived_Annual_Broadscale
 
@@ -308,10 +308,10 @@ pbt_4W<-plot_indicator(BottomT_ind_4W, YEAR, Bottom_Temp, y_label="NAFO 4W Botto
 
 ```
 - Over the past two decades, the Scotian Shelf has incurred rapid warming due to the increased dominance of Warm Slope Water. 
-- SST in th Eastern Scotian Shelf area between 2016-2020 is within the reference period mean (1991-2020), indicating average sea temperatures in the ESS over recent years. However bottom temperature in ESS has generally remained higher than average. 
+- SST in th ESS area between 2016-2020 is within the reference period mean (1991-2020), indicating average sea temperatures in the ESS over recent years. However bottom temperature in ESS has generally remained higher than average. 
 
-### Dissolved Oxygen
-```{r, fig.align="center", echo = FALSE,fig.width = 14, fig.pos='H',fig.cap="Dissolved oxygen (mmol/L) for the ESS. Dotted lines denote the long-term mean."}
+### Dissolved Oxygen, stratification, salinity
+```{r, fig.align="center", echo = FALSE,fig.width = 14, fig.pos='H',fig.cap="Dissolved oxygen (mmol/L) from winkler bottle measurements for the ESS. Stratification and salinity (ppt) for the ESS from 1970-2018. Dotted lines denote the long-term mean."}
 dat.dir<-here::here("data")
 ess_o2 <- "ess_o2data.Rdata"
   load(file.path(dat.dir, ess_o2))
@@ -323,42 +323,28 @@ ess_o2_annual<- ess_o2data |>
   group_by(YEAR) |> 
   summarise(mean_data = mean(DATA_VALUE, na.rm=TRUE))  
 
-po2_ess<-plot_indicator(ess_o2_annual, YEAR, mean_data, y_label= "ESS dissolved oxygen (mmol/L)") 
+po2<-plot_indicator(ess_o2_annual, YEAR, mean_data, y_label= "ESS dissolved oxygen (mmol/L)") 
 
-(po2_ess)
-
-```
-
-### Stratification
-```{r, fig.align="center", echo = FALSE,fig.width = 14, fig.pos='H',fig.cap="Stratification for the ESS from 1970-2018. Dotted lines denote the long-term mean."}
-dat.dir<-here::here("data")
 SSenv <- "SS_environmental_indicators.Rdata"
   load(file.path(dat.dir, SSenv))
-  
+
 Stratification<- SS_environmental_indicators |> 
   filter(ID=="ESS") |> 
   select(YEAR, Stratification)
 
   pstrat<-plot_indicator(Stratification, YEAR, Stratification, y_label="Stratification") 
   
-  (pstrat)
-
-```
-
-### Salinity
-```{r, fig.align="center", echo = FALSE,fig.width = 14, fig.pos='H',fig.cap="Salinity for the ESS from 1970-2018. Dotted lines denote the long-term mean."}
-dat.dir<-here::here("data")
-SSenv <- "SS_environmental_indicators.Rdata"
-  load(file.path(dat.dir, SSenv))
-  
-Salinity<- SS_environmental_indicators |> 
+  Salinity<- SS_environmental_indicators |> 
   filter(ID=="ESS") |> 
   select(YEAR, Salinity)
 
-  psal<-plot_indicator(Salinity, YEAR, Salinity, y_label="Salinity") 
-  
-  (psal)
+  psal<-plot_indicator(Salinity, YEAR, Salinity, y_label="Salinity (ppt") 
+
+po2 + pstrat + psal + plot_layout(nrow=2, byrow=FALSE)
+
 ```
+- Direct measurement for dissolved oxygen (DO) from Winkler bottle measures indicate that dissolved oxygen for the late winter (February) were high (6.4 mmol/L) in the ESS, but within normal range. Measures of DO for from 2022 were taken from a late survey that occurred in the Fall (October) and could account for the lower readings.
+- Salinity and stratification have been generally higher, with more years above the longterm mean in the ESS since the early 1990s. In later years (2018), both were slightly below the longterm mean, but within a normal range. These trends are consisent with SST trends for the ESS 
 
 ## Longer-term climate change 
 
@@ -388,7 +374,7 @@ knitr::include_graphics(here("figures", "SSPs_2040P_change_annual.png"))
 
 This indicator measures the level of exploitation or total fishing pressure at the ecosystem level (Landings/Biomass). Change in this indicator can result from change in biomass, landings or both. 
 
-```{r ,fig.align="center", echo = FALSE,fig.width = 10, fig.height=7,fig.pos='H', fig.cap="Fishing pressure from 1970-2020 calculated from DFO Summer Research Vessel survey. Data have been corrected for catchability with the exception of invertebrates. Dotted lines denote long-term means +/- 1 sd from the available timeseries. Purple, shaded areas represent the latest 5 years of available, robust data."}
+```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.cap="Fishing pressure from 1970-2020 calculated from DFO Summer Research Vessel survey. Data have been corrected for catchability with the exception of invertebrates. Dotted lines denote long-term means +/- 1 sd from the available timeseries. Purple, shaded areas represent the latest 5 years of available, robust data."}
 
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
@@ -429,13 +415,13 @@ pa4<-plot_indicator(fp_inv, YEAR, FP_INVERTEBRATES, y_label="Invertebrate Fishgi
 
 - The latest robust estimates of overall fishing pressure in the ESS (2020) has been below the long-term average since around 1995. The 2018 fishing pressure is artificially high due to the lack of Summer Research Vessel survey in the ESS for that year, while landings remained stable.
 
-- Fishing pressure on gadoids and forage fish have been below the long term mean since the 1990s. In contrast, fishing pressure on invertebrates has been close to the long term average in recent years.
+- Fishing pressure on gadoids and forage fish in the ESS have been below the long term mean since the 1990s. In contrast, fishing pressure on invertebrates has been close to the long term average in recent years.
 
 
 ### Commercial Landings
 [Bundy et al. 2017](https://publications.gc.ca/site/eng/9.845487/publication.html) (see Table S4 for definitions, see Table S5 for species categories)
 
-```{r, fig.align="center", echo = FALSE,fig.width = 10, fig.height=7, fig.pos='H',fig.cap ="Commercial landings collected from NAFO, ZIF and MARFIS databases for species categories in NAFO 4X. Horizontal lines representent the mean +/- 1 sd. Purple, shaded areas are the latest 5 years of available data."}
+```{r, fig.align="center", echo = FALSE, fig.pos='H',fig.cap ="Commercial landings collected from NAFO, ZIF and MARFIS databases for species categories in NAFO 4X. Horizontal lines representent the mean +/- 1 sd. Purple, shaded areas are the latest 5 years of available data."}
 
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
@@ -481,7 +467,7 @@ pb4<-plot_indicator(land_gad, YEAR, landings_GADOIDS.L, y_label="Gadoid landings
 ## Habitat 
 
 ### Depth > 75 fathoms and Depth > 100 fathoms
-```{r}
+```{r, fig.align="center", echo = FALSE,fig.width = 14, fig.height=10, fig.pos='H',fig.cap ="Shrimp Fishing Areas (red lines) on bathymetries for the ESS. Blue lines indicate depth > 75 fathoms, Black lines indicate depth > 100 fathoms."}
 dat.dir<-here::here("data")
 bathy<- "bathy_sf.rda"
 coast<-"coast_sf.rda"
@@ -719,7 +705,7 @@ eco_indicators<-allIndicators #might be a marindicators relic that names it all 
 (pi1)/(pi2|pi3|pi4)
   
 ```
--2018 low values are due to lack of RV survey data for the ESS.
+- Low values in 2018 are due to lack of RV survey data for the ESS.
 
 - Total biomass of all commercial fish species combined are generally decreasing over the last 5 years, with both invertebrates and forage fish experiencing decreases in the most recent year. 
 
