@@ -135,7 +135,7 @@ The ESS area is strongly influenced by natural variability of the climate system
 ### North Atlantic Oscillation Index
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 2.1)
 
-```{r ,fig.align="center", echo = FALSE, out.width="60%",fig.pos='H', fig.cap="The North Atlantic Oscillation (NAO) index, defined as the winter (December, January, February, March) 500 mb pressure Principal Component Analysis which is representative of the difference between the Icelandic low and Azores high. Thick line is a 5-year moving average. Climatological mean is shown as the solid line. Dashed lines are ± standard deviation (SD)."}
+```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.cap="The North Atlantic Oscillation (NAO) index, defined as the winter (December, January, February, March) 500 mb pressure Principal Component Analysis which is representative of the difference between the Icelandic low and Azores high. Thick line is a 5-year moving average. Climatological mean is shown as the solid line. Dashed lines are ± standard deviation (SD)."}
 
 # knitr::include_graphics(here("figures", "nao.png"))
 
