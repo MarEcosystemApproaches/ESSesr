@@ -1,5 +1,5 @@
 ---
-title: " 2025 Ecosystem Summary Report pilot for ESS_v01"
+title: " 2025 Ecosystem Summary Report pilot for ESS_v02"
 author: "Maritimes EBFM WG"
 date: "`r Sys.Date()`"
 output:
@@ -89,7 +89,6 @@ This report outlines ecosystem objectives related to a specific management area 
 This is a summary of the best available information describing the ecosystem specific to management areas within the Maritimes Region.
 
 \newpage
-
 # Ecosystem Objectives {#ecosystemobjectives}
 
 The Ecosystem objectives outline the ecosystem context and considerations for this management area. 
@@ -108,25 +107,23 @@ ESSesr_objectives<- "ESSesr_objectives.Rdata"
 Table_EO<- as.data.frame(ESSesr_objectives)
 
 #change variable in the table
-# Table_EO <- Table_EO%>%
+# Table_EO <- Table_EO|>
 #   mutate(Indicators = if_else(`Management Component` == "Non-Target species", "Commercial effort", Indicators))
 # 
-# ft_01<-flextable(Table_01c) %>%
-#   theme_vanilla()%>%
-#   merge_v(j= "Attribute")%>%
-#   theme_booktabs(bold_header = TRUE) %>%
+# ft_01<-flextable(Table_01c) |>
+#   theme_vanilla()|>
+#   merge_v(j= "Attribute")|>
+#   theme_booktabs(bold_header = TRUE) |>
 #    set_table_properties(layout = "autofit", width = 0.9)
 #                         
 #    ft_01        
-  ERtable<-kable(Table_EO) |> 
-    landscape()
-  
-  ERtable
-   
+  ERtable<-kable(Table_EO) 
+
+ERtable
+
 ```
 
 \newpage
-
 # A. Pressures and Stressors {#pressuresandstressors}
 
 ## Climate and oceanography 
@@ -136,7 +133,7 @@ The ESS area is strongly influenced by natural variability of the climate system
 ### North Atlantic Oscillation Index
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 2.1)
 
-```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.cap="The North Atlantic Oscillation (NAO) index, defined as the winter (December, January, February, March) 500 mb pressure Principal Component Analysis which is representative of the difference between the Icelandic low and Azores high. Climatological mean is shown as the dashed line, solid lines are ± standard deviation (SD)."}
+```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.width = 6, fig.height=3,fig.cap="The North Atlantic Oscillation (NAO) index, defined as the winter (December, January, February, March) 500 mb pressure Principal Component Analysis which is representative of the difference between the Icelandic low and Azores high. Climatological mean is shown as the dashed line, solid lines are ± standard deviation (SD)."}
 
 # knitr::include_graphics(here("figures", "nao.png"))
 
@@ -165,7 +162,7 @@ Temperature anomalies are the deviations from the long-term means, or as standar
 anomalies they are the anomaly divided by the Standard Deviation (SD). If the data permit, the long-term means and SDs are calculated for the 30-year base period of 1991–2020. The use of standardized anomalies and the same base period allow direct comparison of anomalies among sites and variables.
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 3)
 
-```{r,fig.show='hold',fig.align="center", echo = FALSE, fig.cap="The annual sea-surface-temperature normalized anomaly for NAFO regions within the ESS derived from satellite imagery compared to their long-term monthly means. Horizontal solid lines represent ± stanard deviation (SD) for the 1991-2020 period. Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively. "}
+```{r,fig.show='hold',fig.align="center", fig.pos='H', echo = FALSE, fig.cap="The annual sea-surface-temperature normalized anomaly for NAFO regions within the ESS derived from satellite imagery compared to their long-term monthly means. Horizontal solid lines represent ± stanard deviation (SD) for the 1991-2020 period. Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively. "}
 
 dat.dir<-here::here("data")
 dd4vn <- "dd_sstSatellite_4Vn.Rdata"
@@ -219,7 +216,7 @@ bb4W <- "bb_sstSatellite_4W.Rdata"
 ### Bottom Temperature Anomaly
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 8.2)
 
-```{r,fig.align="center", echo = FALSE, fig.cap="Time series of July bottom-temperature anomalies for NAFO regions within the ESS. The dashed horizontal line is the 1991-2020 mean and solid lines represent ± stanard deviation (SD). Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively."}
+```{r,fig.align="center", echo = FALSE, fig.pos='H', fig.cap="Time series of July bottom-temperature anomalies for NAFO regions within the ESS. The dashed horizontal line is the 1991-2020 mean and solid lines represent ± stanard deviation (SD). Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively."}
 
 dat.dir<-here::here("data")
 dd4vn <- "dd_bottomt_4Vn.Rdata"
@@ -270,7 +267,7 @@ bb4W <- "bb_bottomt_4W.Rdata"
 
 ### Sea Surface Temperature (SST), Bottom Temperature
 [Casault et al. 2020](https://casaultb.github.io/azmpdata/)
-```{r, echo = FALSE, fig.align="center", fig.pos='H', fig.cap="Sea Surface Temperature from satellite and Bottom temperature from fixed stations for 4Vn, 4Vs, 4W. Dashed lines denote the long-term mean."}
+```{r, echo = FALSE, fig.align="center", fig.height=8,fig.width=10, fig.pos='H', fig.cap="Sea Surface Temperature from satellite and Bottom temperature from fixed stations for 4Vn, 4Vs, 4W. Dashed lines denote the long-term mean."}
   
  #azmpdata::Derived_Annual_Broadscale
 
@@ -298,24 +295,25 @@ bb4W <- "bb_bottomt_4W.Rdata"
         filter(area=="4W") |>
         select(YEAR=year, Bottom_Temp=temperature_at_sea_floor)
 
-pSST_4Vn<-plot_indicator(SST_ind_4Vn, YEAR, SST, y_label= "NAFO 4Vn SST") 
-pSST_4Vs<-plot_indicator(SST_ind_4Vs, YEAR, SST, y_label= "NAFO 4Vs SST") 
-pSST_4W<-plot_indicator(SST_ind_4W, YEAR, SST, y_label= "NAFO 4W SST") 
+pSST_4Vn<-plot_indicator(SST_ind_4Vn, YEAR, SST, y_label= "4Vn SST") 
+pSST_4Vs<-plot_indicator(SST_ind_4Vs, YEAR, SST, y_label= "4Vs SST") 
+pSST_4W<-plot_indicator(SST_ind_4W, YEAR, SST, y_label= "4W SST") 
  
-pbt_4Vn<-plot_indicator(BottomT_ind_4Vn, YEAR, Bottom_Temp, y_label="NAFO 4Vn Bottom Temp")
+pbt_4Vn<-plot_indicator(BottomT_ind_4Vn, YEAR, Bottom_Temp, y_label="4Vn Bottom Temp")
 
-pbt_4Vs<-plot_indicator(BottomT_ind_4Vs, YEAR, Bottom_Temp, y_label="NAFO 4Vs Bottom Temp")
+pbt_4Vs<-plot_indicator(BottomT_ind_4Vs, YEAR, Bottom_Temp, y_label="4Vs Bottom Temp")
 
-pbt_4W<-plot_indicator(BottomT_ind_4W, YEAR, Bottom_Temp, y_label="NAFO 4W Bottom Temp") 
+pbt_4W<-plot_indicator(BottomT_ind_4W, YEAR, Bottom_Temp, y_label="4W Bottom Temp") 
   
 (pSST_4Vn/pSST_4Vs/pSST_4W)|(pbt_4Vn/pbt_4Vs/pbt_4W)
 
 ```
 - Over the past two decades, the Scotian Shelf has incurred rapid warming due to the increased dominance of Warm Slope Water. 
+
 - SST in the ESS area between 2016-2020 is within the reference period mean (1991-2020), indicating average sea temperatures in the ESS over recent years. However bottom temperature in ESS has generally remained higher than average. 
 
 ### Dissolved Oxygen, stratification, salinity
-```{r, fig.align="center", echo = FALSE,fig.width = 14, fig.pos='H',fig.cap="Dissolved oxygen (mmol/L) from winkler bottle measurements for the ESS. Stratification and salinity (ppt) for the ESS from 1970-2018. Dashed lines denote the long-term mean, solid lines denote ."}
+```{r, fig.align="center", echo = FALSE, fig.pos='H',fig.cap="Dissolved oxygen (mmol/L) from winkler bottle measurements for the ESS. Stratification and salinity (ppt) for the ESS from 1970-2018. Dashed lines denote the long-term mean, solid lines denote ."}
 dat.dir<-here::here("data")
 ess_o2 <- "ess_o2data.Rdata"
   load(file.path(dat.dir, ess_o2))
@@ -327,7 +325,7 @@ ess_o2_annual<- ess_o2data |>
   group_by(YEAR) |> 
   summarise(mean_data = mean(DATA_VALUE, na.rm=TRUE))  
 
-po2<-plot_indicator(ess_o2_annual, YEAR, mean_data, y_label= "ESS dissolved oxygen (mmol/L)") 
+po2<-plot_indicator(ess_o2_annual, YEAR, mean_data, y_label= "Dissolved oxygen (mmol/L)") 
 
 SSenv <- "SS_environmental_indicators.Rdata"
   load(file.path(dat.dir, SSenv))
@@ -348,13 +346,14 @@ po2 + pstrat + psal + plot_layout(nrow=2, byrow=FALSE)
 
 ```
 - Direct measurement for dissolved oxygen (DO) from Winkler bottle measures indicate that dissolved oxygen for the late winter (February) were high (6.4 mmol/L) in the ESS, but within normal range. Measures of DO for from 2022 were taken from a late survey that occurred in the Fall (October) and could account for the lower readings.
-- Salinity and stratification have been generally higher, with more years above the longterm mean in the ESS since the early 1990s. In later years (2018), both were slightly below the longterm mean, but within a normal range. These trends are consistent with SST trends for the ESS 
+
+- Salinity and stratification have been generally higher, with more years above the long-term mean in the ESS since the early 1990s. In later years (2018), both were slightly below the long-term mean, but within a normal range. These trends are consistent with SST trends for the ESS 
 
 ## Longer-term climate change 
 
 Ocean model long-term forecast and projections provide a general expectation of how the world may change. Ocean model projections use low and high emissions pathways as future scenarios to frame expectations of the future ocean climate.
 
-```{r longtermclimate,fig.align="center", echo = FALSE,fig.width = 8, out.width="80%",fig.pos='H', fig.cap="Future scenarios for sea surface temperature changes."}
+```{r long-termclimate,fig.align="center", echo = FALSE, fig.pos='H',fig.width = 8, out.width="80%",fig.pos='H', fig.cap="Future scenarios for sea surface temperature changes."}
 knitr::include_graphics(here("figures", "SSPs_2040P_change_annual.png"))
 ```
 
@@ -368,7 +367,7 @@ knitr::include_graphics(here("figures", "SSPs_2040P_change_annual.png"))
 
 - However, formerly commercial but now depleted species will be at much greater risk due to their low population sizes  ([Boyce et al. 2024](https://www.nature.com/articles/s44183-024-00067-5), see Fig 5 for list).
 
-
+\newpage
 # B. Ecological {#ecological}
 
 ## Commercial Fishery 
@@ -378,7 +377,7 @@ knitr::include_graphics(here("figures", "SSPs_2040P_change_annual.png"))
 
 This indicator measures the level of exploitation or total fishing pressure at the ecosystem level (Landings/Biomass). Change in this indicator can result from change in biomass, landings or both. 
 
-```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.cap="Fishing Pressure (FP) calculated from DFO Summer Research Vessel survey. Data have been corrected for catchability with the exception of invertebrates. Dashed lines denote long-term means, solid green lines denote ± stanard deviation (SD) from the available timeseries. Purple, shaded areas represent the latest 5 years of available, robust data."}
+```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.pos='H', fig.cap="Fishing Pressure (FP) calculated from DFO Summer Research Vessel survey. Data have been corrected for catchability with the exception of invertebrates. Dashed lines denote long-term means, solid green lines denote ± stanard deviation (SD) from the available timeseries. Purple, shaded areas represent the latest 5 years of available, robust data."}
 
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
@@ -397,13 +396,13 @@ fp_forage<-eco_indicators |>
   mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR, FP_FORAGE)
 
-fp_gadoids<-eco_indicators %>%
-  filter(ID=="ESS", YEAR<2021)%>%
+fp_gadoids<-eco_indicators |>
+  filter(ID=="ESS", YEAR<2021)|>
   mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR, FP_GADOIDS)
 
-fp_inv<-eco_indicators %>%
-  filter(ID=="ESS", YEAR<2021)%>%
+fp_inv<-eco_indicators |>
+  filter(ID=="ESS", YEAR<2021)|>
   mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR,FP_INVERTEBRATES) #filter weird FP_invert value for 2021=166 all biomass estimates are low so filtered 2021 out
 
@@ -425,13 +424,13 @@ pa4<-plot_indicator(fp_inv, YEAR, FP_INVERTEBRATES, y_label="Invertebrate FP")
 
 - The latest robust estimates of overall fishing pressure in the ESS (2020) has been below the long-term average since around 1995. 
 
-- Fishing pressure on gadoids and forage fish in the ESS have been below the long term mean since the 1990s. In contrast, fishing pressure on invertebrates has been close to the long term average in recent years.
+- Fishing pressure on gadoids and forage fish in the ESS have been below the long-term mean since the 1990s. In contrast, fishing pressure on invertebrates has been close to the long-term average in recent years.
 
 
 ### Commercial Landings
 [Bundy et al. 2017](https://publications.gc.ca/site/eng/9.845487/publication.html) (see Table S4 for definitions, see Table S5 for species categories)
 
-```{r, fig.align="center", echo = FALSE, fig.pos='H',fig.cap ="Commercial landings collected from NAFO, ZIF and MARFIS databases for species categories in the ESS. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
+```{r, fig.align="center", echo = FALSE, fig.pos='H',fig.height=8, fig.width=10, fig.cap ="Commercial landings (kg) collected from NAFO, ZIF and MARFIS databases for species categories in the ESS. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
 
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
@@ -439,21 +438,21 @@ eco_indicators<- "eco_indicators_esswss.Rdata"
   
 eco_indicators<-allIndicators #might be a marindicators relic that names it all Indicators
 
-land_ind<-eco_indicators %>%
-  filter(ID=="ESS")%>%
-        select(YEAR,landings_ALL, landings_FORAGE.L, landings_GADOIDS.L, landings_INVERTEBRATES.L)%>%
+land_ind<-eco_indicators |> 
+  filter(ID=="ESS") |> 
+        select(YEAR,landings_ALL, landings_FORAGE.L, landings_GADOIDS.L, landings_INVERTEBRATES.L) |> 
   pivot_longer(c(landings_ALL, landings_FORAGE.L, landings_GADOIDS.L, landings_INVERTEBRATES.L))
 
-land_inv<-eco_indicators %>%
-  filter(ID=="ESS")%>%
+land_inv<-eco_indicators |> 
+  filter(ID=="ESS") |> 
         select(YEAR, landings_INVERTEBRATES.L)
   
-    land_for<-eco_indicators %>%
-  filter(ID=="ESS" )%>%
+    land_for<-eco_indicators |> 
+  filter(ID=="ESS" ) |> 
         select(YEAR, landings_FORAGE.L)
     
-      land_gad<-eco_indicators %>%
-  filter(ID=="ESS" )%>%
+      land_gad<-eco_indicators |> 
+  filter(ID=="ESS" ) |> 
         select(YEAR, landings_GADOIDS.L)
 
 pb1<-plot_multiple_indicators(land_ind, YEAR, value, name, y_label = "Landings (kg)", legend_labels = c("All", "Forage", "Gadoids", "Inverts"))
@@ -465,7 +464,7 @@ pb3<-plot_indicator(land_for, YEAR, landings_FORAGE.L, y_label="Forage fish land
 pb4<-plot_indicator(land_gad, YEAR, landings_GADOIDS.L, y_label="Gadoid landings (kg)")
 
       
-(pb1/pb2/pb3/pb4)
+pb1/pb2/pb3/pb4
 
 ```
 
@@ -477,7 +476,7 @@ pb4<-plot_indicator(land_gad, YEAR, landings_GADOIDS.L, y_label="Gadoid landings
 ## Habitat 
 
 ### Depth > 75 fathoms and Depth > 100 fathoms
-```{r, fig.align="center", echo = FALSE,fig.width = 14, fig.height=10, fig.pos='H',fig.cap ="Shrimp Fishing Areas (red lines) and bathymetries for the ESS. Blue lines indicate depth > 75 fathoms (left), Black lines indicate depth > 100 fathoms (right)."}
+```{r, fig.align="center", echo = FALSE, fig.pos='H',fig.cap ="Shrimp Fishing Areas (red lines) and bathymetries for the ESS. Blue lines indicate depth > 75 fathoms (left), Black lines indicate depth > 100 fathoms (right)."}
 dat.dir<-here::here("data")
 bathy<- "bathy_sf.rda"
 coast<-"coast_sf.rda"
@@ -534,7 +533,7 @@ Productivity relates to the amount of energy or biomass generated in an ecosyste
 
  The amount of available nutrient supply for phytoplankton production is represented by surface (0-50 m) and subsurface (50-150 m) nutrient concentrations
 
-```{r fig.align="center", echo = FALSE,fig.width = 10, fig.height=10,fig.pos='H', fig.cap="Nitrate 0-50m, Nitrate 50-150, from Louisburg Line (LL), Chlorophyll (surface) from the Eastern Scotian Shelf. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data. "}
+```{r fig.align="center", echo = FALSE, fig.pos='H', fig.cap="Nitrate 0-50m, Nitrate 50-150, from Louisburg Line (LL), Chlorophyll (surface) from the Eastern Scotian Shelf. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data. "}
 dat.dir<-here::here("data")
 AZMP_nutrients<- "AZMP_nutrients.Rdata"
   load(file.path(dat.dir, AZMP_nutrients))
@@ -550,8 +549,8 @@ AZMP_nutrients<- "AZMP_nutrients.Rdata"
     
 azmpdata::RemoteSensing_Annual_Broadscale   
 
-    PP_ind<-RemoteSensing_Annual_Broadscale%>%
-        filter( area=="ESS_remote_sensing")%>%
+    PP_ind<-RemoteSensing_Annual_Broadscale|>
+        filter( area=="ESS_remote_sensing")|>
         select(YEAR=year,Chl_surface=surface_chlorophyll_log10)  
 
 
@@ -566,24 +565,24 @@ ph1<-MAReco::plot_indicator(PP_ind, YEAR, Chl_surface, y_label="Surface Chloroph
 - In the most recent year, surface Chlorophyll in the ESS has been high.
 
 ### Bloom statistics
-```{r fig.align="center", echo = FALSE,fig.width = 10, fig.height=10,fig.pos='H', fig.cap="Bloom statistics,for the ESS. Dashed lines representent the mean, solid green lines denote ± stanard deviation (SD) . Purple, shaded areas are the latest 5 years of available data. "}
+```{r fig.align="center", echo = FALSE, fig.pos='H',fig.cap="Bloom statistics,for the ESS. Dashed lines representent the mean, solid green lines denote ± stanard deviation (SD) . Purple, shaded areas are the latest 5 years of available data. "}
 azmpdata::RemoteSensing_Annual_Broadscale
 
   
-   BS_ind<-RemoteSensing_Annual_Broadscale%>%
-        filter(area=="ESS_remote_sensing")%>%
+   BS_ind<-RemoteSensing_Annual_Broadscale|>
+        filter(area=="ESS_remote_sensing")|>
         select(YEAR=year, bloom_start)
    
-   BD_ind<-RemoteSensing_Annual_Broadscale%>%
-        filter(area=="ESS_remote_sensing")%>%
+   BD_ind<-RemoteSensing_Annual_Broadscale|>
+        filter(area=="ESS_remote_sensing")|>
         select(YEAR=year, bloom_duration)
    
-  BA_ind<-RemoteSensing_Annual_Broadscale%>%
-        filter(area=="ESS_remote_sensing")%>%
+  BA_ind<-RemoteSensing_Annual_Broadscale|>
+        filter(area=="ESS_remote_sensing")|>
         select(YEAR=year, bloom_amplitude)
       
-  BM_ind<-RemoteSensing_Annual_Broadscale%>%
-        filter(area=="ESS_remote_sensing")%>%
+  BM_ind<-RemoteSensing_Annual_Broadscale|>
+        filter(area=="ESS_remote_sensing")|>
         select(YEAR=year, bloom_magnitude)
    
 pbs<-plot_indicator(BS_ind, YEAR, bloom_start, y_label="Bloom start")
@@ -594,32 +593,32 @@ pbm<-plot_indicator(BM_ind, YEAR, bloom_magnitude, y_label="Bloom magnitude")
 (pbs/pbd)|(pba/pbm)
 
 ```
-- In the ESS bloom statistics are generally within the longterm mean range for 2020, and show no trend over time. 
+- In the ESS bloom statistics are generally within the long-term mean range for 2020, and show no trend over time. 
 
 ### *Calanus finmarchicus*, Zooplankton Biomass
-```{r fig.align="center", echo = FALSE,fig.width = 10, fig.height=10,fig.pos='H', fig.cap=" *C.finmarchicus*, and meso zooplankton biomass (dry weight), from NAFO regions within the ESS. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data. "}
+```{r fig.align="center", echo = FALSE,fig.pos='H', fig.cap=" *C.finmarchicus*, and meso zooplankton biomass (dry weight), from NAFO regions within the ESS. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data. "}
 azmpdata::Zooplankton_Seasonal_Broadscale
  
-   CF_ind_4V<-Zooplankton_Seasonal_Broadscale%>%
-        filter(area=="4V")%>%
+   CF_ind_4V<-Zooplankton_Seasonal_Broadscale|>
+        filter(area=="4V")|>
         select(YEAR=year, Calanus_finmarchicus)
    
-    CF_ind_4W<-Zooplankton_Seasonal_Broadscale%>%
-        filter(area=="4W")%>%
+    CF_ind_4W<-Zooplankton_Seasonal_Broadscale|>
+        filter(area=="4W")|>
         select(YEAR=year, Calanus_finmarchicus)
   
-  ZP_ind_4V<-Zooplankton_Seasonal_Broadscale%>%
-        filter(area=="4V")%>%
+  ZP_ind_4V<-Zooplankton_Seasonal_Broadscale|>
+        filter(area=="4V")|>
         select(YEAR=year, Zooplankton_Biomass=zooplankton_meso_dry_weight)
   
-   ZP_ind_4W<-Zooplankton_Seasonal_Broadscale%>%
-        filter(area=="4W")%>%
+   ZP_ind_4W<-Zooplankton_Seasonal_Broadscale|>
+        filter(area=="4W")|>
         select(YEAR=year, Zooplankton_Biomass=zooplankton_meso_dry_weight)
    
-pcf4v<-plot_indicator(CF_ind_4V, YEAR, Calanus_finmarchicus, y_label="NAFO 4V C. finmarchicus")
-pcf4w<-plot_indicator(CF_ind_4W, YEAR, Calanus_finmarchicus, y_label="NAFO 4W C. finmarchicus")
-pzp4v<-plot_indicator(ZP_ind_4V, YEAR, Zooplankton_Biomass, y_label="NAFO 4V Zooplankton biomass")   
-pzp4w<-plot_indicator(ZP_ind_4W, YEAR, Zooplankton_Biomass, y_label="NAFO 4W Zooplankton biomass")  
+pcf4v<-plot_indicator(CF_ind_4V, YEAR, Calanus_finmarchicus, y_label="4V C. finmarchicus")
+pcf4w<-plot_indicator(CF_ind_4W, YEAR, Calanus_finmarchicus, y_label="4W C. finmarchicus")
+pzp4v<-plot_indicator(ZP_ind_4V, YEAR, Zooplankton_Biomass, y_label="4V Zooplankton biomass")   
+pzp4w<-plot_indicator(ZP_ind_4W, YEAR, Zooplankton_Biomass, y_label="4W Zooplankton biomass")  
 
 (pcf4v/pcf4w)|(pzp4v/pzp4w)
 ```
@@ -633,15 +632,15 @@ pzp4w<-plot_indicator(ZP_ind_4W, YEAR, Zooplankton_Biomass, y_label="NAFO 4W Zoo
 
 LFI is an estimate of the proportion of large fish in the community or proportion of biomass occupying the top predator trophic-level ([Greenstreet and Rogers 2006](https://academic.oup.com/icesjms/article/63/4/573/690519#139793319)). 
 
-```{r fig.align="center", echo = FALSE,fig.width = 5, fig.height=4,fig.pos='H', fig.cap="Large fish indicator from RV survey data that has been corrected for catchability. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
+```{r fig.align="center", echo = FALSE,fig.pos='H',fig.width = 5, fig.height=4, fig.cap="Large fish indicator from RV survey data that has been corrected for catchability. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
   load(file.path(dat.dir, eco_indicators))
   
   eco_indicators<-allIndicators #might be a marindicators relic that names it all Indicators
   
-LFI<-eco_indicators %>%
-  filter(ID=="ESS", YEAR<2021)%>%
+LFI<-eco_indicators |>
+  filter(ID=="ESS", YEAR<2021)|>
   mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR, LargeFishIndicator)
 
@@ -663,7 +662,7 @@ Biodiversity is described as the variety and variability among living organisms 
 
 Shannon Diversity Index accounts for both abundance and evenness of species present in a community. Margalef Richness measures the number of species present accounting for sampling effects. Heips Evenness measures how equally the species richness contributes to the total abundance or biomass of the community. Due to improvements in species identification over time, long-term Shannon Diversity and Margalef richness can be misleading. Only years 2000-2020 were used here. 
 
-```{r fig.align="center", echo = FALSE,fig.width = 10, fig.height=7,fig.pos='H', fig.cap="Shannon diversity Index, Margalef Richness, Hieps Evenness measured from data collected from DFO's Summer RV survey and has been corrected for catchability.Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
+```{r fig.align="center", echo = FALSE, fig.pos='H', fig.cap="Shannon diversity Index, Margalef Richness, Hieps Evenness measured from data collected from DFO's Summer RV survey and has been corrected for catchability.Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
 
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
@@ -671,16 +670,16 @@ eco_indicators<- "eco_indicators_esswss.Rdata"
   
   eco_indicators<-allIndicators #might be a marindicators relic that names it all Indicators
   
- Shannondiversity<-eco_indicators %>%
-  filter(ID=="ESS", YEAR<2021 & YEAR>2000)%>%
+ Shannondiversity<-eco_indicators |>
+  filter(ID=="ESS", YEAR<2021 & YEAR>2000)|>
         select(YEAR, ShannonDiversity_ALL)
  
- Heips<-eco_indicators %>%
-  filter(ID=="ESS",YEAR<2021)%>%
+ Heips<-eco_indicators |>
+  filter(ID=="ESS",YEAR<2021)|>
         select(YEAR, Heips_ALL)
  
-  Margalef<-eco_indicators%>%
-  filter(ID=="ESS", YEAR<2021 & YEAR>2000)%>%
+  Margalef<-eco_indicators|>
+  filter(ID=="ESS", YEAR<2021 & YEAR>2000)|>
         select(YEAR, MargalefRichness_ALL)
 
   
@@ -704,30 +703,30 @@ eco_indicators<- "eco_indicators_esswss.Rdata"
 
 Guild-level biomasses address structural attributes of food webs, and can also serve as proxies for ecosystem functioning ([Tam et al. 2017](https://academic.oup.com/icesjms/article/74/7/2040/2970046)).This indicator includes multiple guilds for fish and invertebrates from the RV Survey.
 
-```{r fig.align="center", echo = FALSE,fig.width = 10, fig.height=7,fig.pos='H', fig.cap="Total Biomass and guild-level biomasses for fish catagories from DFO's Summer RV survey which have been corrected for catchability. Invertebrate estimates are not corrected for catchability. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
+```{r fig.align="center", echo = FALSE, fig.pos='H', fig.height=8, fig.width=10, fig.cap="Total biomass and guild-level biomasses for fish catagories from DFO's Summer RV survey which have been corrected for catchability. Invertebrate estimates are not corrected for catchability. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
   load(file.path(dat.dir, eco_indicators))
 
 eco_indicators<-allIndicators #might be a marindicators relic that names it all Indicators  
-  bio_ind<-eco_indicators %>%
-  filter(ID=="ESS", YEAR<2021)%>%
-        select(YEAR,BIOMASS_ALL, BIOMASS_FORAGE, BIOMASS_GADOIDS, BIOMASS_INVERTEBRATES)%>%
+  bio_ind<-eco_indicators |> 
+  filter(ID=="ESS", YEAR<2021) |> 
+        select(YEAR,BIOMASS_ALL, BIOMASS_FORAGE, BIOMASS_GADOIDS, BIOMASS_INVERTEBRATES) |> 
     mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
   pivot_longer(c(BIOMASS_ALL, BIOMASS_FORAGE, BIOMASS_GADOIDS, BIOMASS_INVERTEBRATES)) 
   
-  bio_inv<-eco_indicators %>%
-  filter(ID=="ESS", YEAR<2021 & YEAR>1999)%>%
+  bio_inv<-eco_indicators |>
+  filter(ID=="ESS", YEAR<2021 & YEAR>1999)|>
     mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR, BIOMASS_INVERTEBRATES)
   
-    bio_for<-eco_indicators %>%
-  dplyr::filter(ID=="ESS", YEAR<2021 )%>%
+    bio_for<-eco_indicators |>
+  dplyr::filter(ID=="ESS", YEAR<2021 )|>
      mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
       dplyr::  select(YEAR, BIOMASS_FORAGE)
     
-      bio_gad<-eco_indicators %>%
-  filter(ID=="ESS", YEAR<2021 )%>%
+      bio_gad<-eco_indicators |>
+  filter(ID=="ESS", YEAR<2021 )|>
     mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR, BIOMASS_GADOIDS)
     
@@ -740,7 +739,7 @@ eco_indicators<-allIndicators #might be a marindicators relic that names it all 
     
     pi4<-plot_indicator(bio_gad, YEAR, BIOMASS_GADOIDS, y_label= "Gadoid Biomass (t)") 
       
-(pi1)/(pi2|pi3|pi4)
+pi1/pi2/pi3/pi4
   
 ```
 - Anomalous low values in 2018 are due to lack of RV survey data for the ESS, and have been removed. 
@@ -749,14 +748,15 @@ eco_indicators<-allIndicators #might be a marindicators relic that names it all 
 
 - Total biomass of all commercial fish species combined are generally decreasing over the last 5 years, with both invertebrates and forage fish experiencing decreases in the most recent year. 
 
-- Since the collapse of gadoids in the lates 1980s and early 1990s, biomass has been low. It increased to vary around the long term mean from the mid 2000s to mid 2010s, but has declined since.
+- Since the collapse of gadoids in the lates 1980s and early 1990s, biomass has been low. It increased to vary around the long-term mean from the mid 2000s to mid 2010s, but has declined since.
 
-- Forage fish have been relatively stable in the ESS with annual biomass within or above the longterm mean since the mid-1980s. In the last couple years forage fish biomass has been close to the longterm mean.
+- Forage fish have been relatively stable in the ESS with annual biomass within or above the long-term mean since the mid-1980s. In the last couple years forage fish biomass has been close to the long-term mean.
 
 ## Non-Target Species 
 
 *In development*
 
+\newpage
 # C. Economic {#economic}
 
 ## Commercial Fishery
@@ -770,8 +770,8 @@ dat.dir<-here::here("data")
 MAR_Landings_Value<- "MAR_Landings_Value.Rdata"
   load(file.path(dat.dir, MAR_Landings_Value))
   
-Landings_value<-MAR_Landings_Value %>%
-  filter(ID=="ESS")%>%
+Landings_value<-MAR_Landings_Value |>
+  filter(ID=="ESS")|>
         select(YEAR, Species_Category, Landed_Value_CAD)
 
 # ess_lv<-MAR_Landings_Value_sp |> filter(ID %in% c("4VN", "4VS", "4W")) |> group_by(YEAR, Species_Category) |> summarise(Landed_weight_KG=sum(Landed_weight_KG),Landed_Value_CAD=sum(Landed_Value_CAD)) |> mutate(ID="ESS")
@@ -780,7 +780,7 @@ Landings_value<-MAR_Landings_Value %>%
 
 plv<- MAReco::plot_multiple_indicators(Landings_value, YEAR, Landed_Value_CAD, Species_Category, y_label= "Landed Value (CAD)", legend_labels=c("Groundfish", "Mollusc and Crustacean", "Pelagic and Estuarial") )
   
-  # mean_land_ind_4x <- Landings_value_4X %>% group_by(Species_Category)|>  summarise(mn=mean(Landed_Value_CAD))
+  # mean_land_ind_4x <- Landings_value_4X |> group_by(Species_Category)|>  summarise(mn=mean(Landed_Value_CAD))
   # 
   # pc1<-ggplot(Landings_value_4X, aes(x = YEAR, y = Landed_Value_CAD, color = Species_Category)) +
   # theme_classic()+
@@ -797,7 +797,7 @@ plv<- MAReco::plot_multiple_indicators(Landings_value, YEAR, Landed_Value_CAD, S
   
 ```
 
-- Historical trends indicate that groundfish had higher landed value in the 1990s than mollusc and crustaceans or pelagic and estuarial fish in the ESS, but recent landings are dominated by Mollusc and crustaceans. 
+- Historical trends indicate that groundfish had higher landed value in the 1990s than mollusc and crustaceans or pelagic and estuarial fish in the ESS, but recent landings are dominated by mollusc and crustaceans. 
 
 - In the last 5 years, the landed value of mollusc and crustaceans in the ESS have fluctuated while still remaining high. Although conservation concerns for many invertebrate species is low, variability in landed value could have impacts to coastal communities. In contrast, recent 5 year landed values of groundfish and pelagic groups have remained stable in the ESS. 
 
