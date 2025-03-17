@@ -1,5 +1,5 @@
 ---
-title: " 2025 Ecosystem Summary Report pilot for ESS_v02"
+title: " 2025 Ecosystem Summary Report pilot for the Eastern Scotian Shelf (ESS)"
 author: "Maritimes EBFM WG"
 date: "`r Sys.Date()`"
 output:
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 #functions to calculate indicators
 require(marindicators)
 require(azmpdata)
-require(Mar.fleets)
+# require(Mar.fleets)
 require(knitr)
 require(kableExtra)
 require(tidyverse)
@@ -117,10 +117,10 @@ Table_EO<- as.data.frame(ESSesr_objectives)
 #    set_table_properties(layout = "autofit", width = 0.9)
 #                         
 #    ft_01        
-  ERtable<-kable(Table_EO) 
+  ERtable<-kable(Table_EO)
+
 
 ERtable
-
 ```
 
 \newpage
@@ -133,7 +133,7 @@ The ESS area is strongly influenced by natural variability of the climate system
 ### North Atlantic Oscillation Index
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 2.1)
 
-```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.width = 6, fig.height=3,fig.cap="The North Atlantic Oscillation (NAO) index, defined as the winter (December, January, February, March) 500 mb pressure Principal Component Analysis which is representative of the difference between the Icelandic low and Azores high. Climatological mean is shown as the dashed line, solid lines are ± standard deviation (SD)."}
+```{r ,fig.align="center", echo = FALSE,fig.pos='H', fig.width = 5, fig.height=3,fig.cap="The North Atlantic Oscillation (NAO) index, defined as the winter (December, January, February, March) 500 mb pressure Principal Component Analysis which is representative of the difference between the Icelandic low and Azores high. Climatological mean is shown as the dashed line, solid lines are ± standard deviation (SD)."}
 
 # knitr::include_graphics(here("figures", "nao.png"))
 
@@ -156,10 +156,11 @@ dd <- "dd_nao_.Rdata"
 
 - The NAO has been shown to strongly affect bottom temperature distributions throughout the region from the Labrador Shelf to the Gulf of Maine ([Petrie 2007](https://www.tandfonline.com/doi/abs/10.3137/ao.450302)). The response is bimodal, the product of direct and advective effects, with positive (negative) NAO generally corresponding to colder- (warmer-) than-normal bottom temperatures over the Labrador-Newfoundland Shelf, the Gulf of St. Lawrence, and the Eastern Scotian Shelf, and warmer- (colder-) than-normal conditions on the Central and Western Scotian Shelf and in the Gulf of Maine. 
 
-
+\newpage
 ### Sea Surface Temperature Anomaly
 Temperature anomalies are the deviations from the long-term means, or as standardized
 anomalies they are the anomaly divided by the Standard Deviation (SD). If the data permit, the long-term means and SDs are calculated for the 30-year base period of 1991–2020. The use of standardized anomalies and the same base period allow direct comparison of anomalies among sites and variables.
+
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 3)
 
 ```{r,fig.show='hold',fig.align="center", fig.pos='H', echo = FALSE, fig.cap="The annual sea-surface-temperature normalized anomaly for NAFO regions within the ESS derived from satellite imagery compared to their long-term monthly means. Horizontal solid lines represent ± stanard deviation (SD) for the 1991-2020 period. Regime shift analysis results from running the method forwards and backwards on the time series depicted by the blue and red horizontal lines, respectively. "}
@@ -212,7 +213,7 @@ bb4W <- "bb_sstSatellite_4W.Rdata"
 
 - The annual SST anomalies during 2023 were higher than average and SST remained above normal, with the last three years being the three warmest years in the ESS. A regime shift algorithm to detect a step change using mean levels was applied to the annual time-series (Rodionov 2004). Over the length of the record, the temperature has three distinct periods at all regions, a relatively cooler period from 1982 to 1993, near the climatological mean from 1994 to 2011, and a relatively warmer period from 2012 to present.
 
-
+\newpage 
 ### Bottom Temperature Anomaly
 [Hebert et al. 2024](https://publications.gc.ca/collections/collection_2024/mpo-dfo/Fs97-18-380-eng.pdf) (see Section 8.2)
 
@@ -264,7 +265,7 @@ bb4W <- "bb_bottomt_4W.Rdata"
 
 - The near-bottom temperature anomalies for 2023 showed a decreasing trends across NAFO 4Vn, 4Vs, and 4W areas. While the northern part of the ESS (NAFO 4Vn) is in a warmer bottom temperature regime since 2012, The southeast portion of the ESS (NAFO 4Vs) is in the normal range in 2022-2023.  On southwest portion of the ESS (NAFO 4W) bottom temperatures were showing cooling trends below normal for 2023. All regions show elevated bottom temperatures from years 2010-2021.
 
-
+\newpage
 ### Sea Surface Temperature (SST), Bottom Temperature
 [Casault et al. 2020](https://casaultb.github.io/azmpdata/)
 ```{r, echo = FALSE, fig.align="center", fig.height=8,fig.width=10, fig.pos='H', fig.cap="Sea Surface Temperature from satellite and Bottom temperature from fixed stations for 4Vn, 4Vs, 4W. Dashed lines denote the long-term mean."}
@@ -308,10 +309,13 @@ pbt_4W<-plot_indicator(BottomT_ind_4W, YEAR, Bottom_Temp, y_label="4W Bottom Tem
 (pSST_4Vn/pSST_4Vs/pSST_4W)|(pbt_4Vn/pbt_4Vs/pbt_4W)
 
 ```
+- SST and bottom temperature data are only available until 2020, and awaiting updates.
+
 - Over the past two decades, the Scotian Shelf has incurred rapid warming due to the increased dominance of Warm Slope Water. 
 
 - SST in the ESS area between 2016-2020 is within the reference period mean (1991-2020), indicating average sea temperatures in the ESS over recent years. However bottom temperature in ESS has generally remained higher than average. 
 
+\newpage
 ### Dissolved Oxygen, stratification, salinity
 ```{r, fig.align="center", echo = FALSE, fig.pos='H',fig.cap="Dissolved oxygen (mmol/L) from winkler bottle measurements for the ESS. Stratification and salinity (ppt) for the ESS from 1970-2018. Dashed lines denote the long-term mean, solid lines denote ."}
 dat.dir<-here::here("data")
@@ -349,6 +353,7 @@ po2 + pstrat + psal + plot_layout(nrow=2, byrow=FALSE)
 
 - Salinity and stratification have been generally higher, with more years above the long-term mean in the ESS since the early 1990s. In later years (2018), both were slightly below the long-term mean, but within a normal range. These trends are consistent with SST trends for the ESS 
 
+\newpage
 ## Longer-term climate change 
 
 Ocean model long-term forecast and projections provide a general expectation of how the world may change. Ocean model projections use low and high emissions pathways as future scenarios to frame expectations of the future ocean climate.
@@ -426,7 +431,7 @@ pa4<-plot_indicator(fp_inv, YEAR, FP_INVERTEBRATES, y_label="Invertebrate FP")
 
 - Fishing pressure on gadoids and forage fish in the ESS have been below the long-term mean since the 1990s. In contrast, fishing pressure on invertebrates has been close to the long-term average in recent years.
 
-
+\newpage
 ### Commercial Landings
 [Bundy et al. 2017](https://publications.gc.ca/site/eng/9.845487/publication.html) (see Table S4 for definitions, see Table S5 for species categories)
 
@@ -472,7 +477,7 @@ pb1/pb2/pb3/pb4
 
 - Invertebrates landings have been increasing over time, but have been in decreasing over the last 5 years (but remain above the long-term mean). These trends coincide with shifting availability of species in the area. 
 
-
+\newpage
 ## Habitat 
 
 ### Depth > 75 fathoms and Depth > 100 fathoms
@@ -525,6 +530,7 @@ pbathy100<-ggplot() +
 
 *in development*
 
+\newpage
 ## Productivity 
 Productivity relates to the amount of energy or biomass generated in an ecosystem, providing energy to consumers. A number of factors play a role in primary and secondary production including nitrate, chlorophyll, bloom statistics, *Calanus finmarchicus* biomass, and zooplankton biomass.
 
@@ -626,13 +632,14 @@ pzp4w<-plot_indicator(ZP_ind_4W, YEAR, Zooplankton_Biomass, y_label="4W Zooplank
 - The most recent estimates in NAFO 4V of biomass of *C. finmarchicus* has been lower than the long-term average in 2023, while abundances in NAFO 4W are average. 
 - Most recent estimates of zooplankton biomass has average in NAFO 4V, but below the longeterm average in NAFO 4W since 2022.
 
+\newpage
 ### Large Fish Indicator (LFI)
 
 [Bundy et al. 2017](https://publications.gc.ca/site/eng/9.845487/publication.html) (see Table S4 for definitions and details)
 
 LFI is an estimate of the proportion of large fish in the community or proportion of biomass occupying the top predator trophic-level ([Greenstreet and Rogers 2006](https://academic.oup.com/icesjms/article/63/4/573/690519#139793319)). 
 
-```{r fig.align="center", echo = FALSE,fig.pos='H',fig.width = 5, fig.height=4, fig.cap="Large fish indicator from RV survey data that has been corrected for catchability. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
+```{r fig.align="center", echo = FALSE,fig.pos='H',fig.width = 5, fig.height=3, fig.cap="Large fish indicator from RV survey data that has been corrected for catchability. Dashed lines represent the mean, solid green lines denote ± stanard deviation (SD). Purple, shaded areas are the latest 5 years of available data."}
 dat.dir<-here::here("data")
 eco_indicators<- "eco_indicators_esswss.Rdata"
   load(file.path(dat.dir, eco_indicators))
@@ -654,6 +661,7 @@ pLFI<-MAReco::plot_indicator(LFI, YEAR, LargeFishIndicator, y_label="Large Fish 
 ### Predator index
 *in development*
 
+\newpage
 ## Biodiversity 
 Biodiversity is described as the variety and variability among living organisms from all sources ([CBD](https://www.cbd.int/convention)). It is linked to ecosystem resilience and plays an important role in maintaining functionality and productivity of ecosystems. Biodiversity can relate to genetic, species, guild and ecosystem diversity. 
 
@@ -672,14 +680,17 @@ eco_indicators<- "eco_indicators_esswss.Rdata"
   
  Shannondiversity<-eco_indicators |>
   filter(ID=="ESS", YEAR<2021 & YEAR>2000)|>
+   mutate_all(~ifelse(YEAR == 2018, NA, .)) |> #removed because RV survey didn't run in ESS for 2018
         select(YEAR, ShannonDiversity_ALL)
  
  Heips<-eco_indicators |>
   filter(ID=="ESS",YEAR<2021)|>
+   mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR, Heips_ALL)
  
   Margalef<-eco_indicators|>
   filter(ID=="ESS", YEAR<2021 & YEAR>2000)|>
+    mutate_all(~ifelse(YEAR == 2018, NA, .)) |>
         select(YEAR, MargalefRichness_ALL)
 
   
@@ -695,6 +706,8 @@ eco_indicators<- "eco_indicators_esswss.Rdata"
   
 ```
  
+- Anomalous low values in 2018 are due to lack of RV survey data for the ESS, and have been removed.  
+
 - Biodversity measures through time in the ESS indicate that the ESS is currently generally composed of fewer dominant species. While improving sampling protocols in the RV surveys have increased Margalef Richness over the last 5 years, the species diversity has been lower (lower mean range) in the last 5 years. Heips evenness has been relatively low since the 2000s, the low values (<0.2) is consistent with a community with generally fewer, species that are highly abundant. 
 
 ### Guild-level Biomass
